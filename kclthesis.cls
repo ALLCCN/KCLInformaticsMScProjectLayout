@@ -1,4 +1,4 @@
-\ProvidesClass{kclthesis}[2016/02/13 KCL MSc Thesis Class by Sebastian Zillessen and Andre Mueller]
+\ProvidesClass{kclthesis}[2018/03/11 KCL MSc Thesis Class by ALLCCN]
 \NeedsTeXFormat{LaTeX2e}
 
 \newif\ifkclthesis@isdraft
@@ -204,7 +204,7 @@ United Kingdom
 \begin{center}
 {\bf \@author}\\
 Student Number: \@studentnumber\\
-Course: \@programme
+Degree Programme: \@programme
 \end{center}
 
 \vspace{1.2cm}
@@ -222,8 +222,8 @@ Course: \@programme
 \vspace{1.2cm}
 
 \begin{center}
-Thesis submitted as part of the requirements for the award of the MSc in Web Intelligence.\\
-7CCSMPRJ - MSc Individual Project - 2016
+Thesis submitted as part of the requirements for the award of the \@programme.\\
+\@modulecode - \@submissiontitle
 \end{center}
 \end{titlepage}
 }
