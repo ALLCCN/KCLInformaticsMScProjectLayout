@@ -24,3 +24,6 @@ tm
 .texpadtmp/
 Thesis.pdf
 *.aux
+.DS_Store
+*/.DS_Store
+.DS_Store
