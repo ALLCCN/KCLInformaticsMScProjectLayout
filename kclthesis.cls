@@ -1,4 +1,4 @@
-\ProvidesClass{kclthesis}[2018/03/11 KCL MSc Thesis Class by ALLCCN]
+\ProvidesClass{kclthesis}[2018/03/11 KCL MSc Thesis Class by Sebastian Zillessen, Andre Mueller and ALLCCN]
 \NeedsTeXFormat{LaTeX2e}
 
 \newif\ifkclthesis@isdraft
