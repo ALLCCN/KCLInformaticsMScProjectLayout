@@ -1,13 +1,21 @@
-\ProvidesClass{kclthesis}[2018/03/11 KCL MSc Thesis Class by Sebastian Zillessen, Andre Mueller and ALLCCN]
+\ProvidesClass{kclthesis}[2018/08/01 KCL MSc Thesis Class by Sebastian Zillessen, Andre Mueller and ALLCCN]
 \NeedsTeXFormat{LaTeX2e}
 
 \newif\ifkclthesis@isdraft
 \newif\ifkclthesis@kclharvardbib
 
+\newif\ifkclthesis@releaseproject
+\newif\ifkclthesis@notreleaseproject
+\newif\ifkclthesis@undreleaseproject
+
 
 \DeclareOption{isdraft}{\kclthesis@isdrafttrue}
 \DeclareOption{kclharvardbib}{\kclthesis@kclharvardbibtrue}
 
+\DeclareOption{releaseproject}{\kclthesis@releaseprojecttrue\kclthesis@notreleaseprojectfalse\kclthesis@undreleaseprojectfalse}
+\DeclareOption{notreleaseproject}{\kclthesis@releaseprojectfalse\kclthesis@notreleaseprojecttrue\kclthesis@undreleaseprojectfalse}
+\DeclareOption{undreleaseproject}{\kclthesis@releaseprojectfalse\kclthesis@notreleaseprojectfalse\kclthesis@undreleaseprojecttrue}
+\ExecuteOptions{undreleaseproject}
 
 \ProcessOptions*% process options it the order the user provides them
 
@@ -51,18 +59,26 @@
 \newcommand*{\@modulecode}{\red{Missing Module Code}}
 \newcommand*{\department}[1]{\gdef\@department{#1}}
 \newcommand*{\@department}{\red{Missing Department}}
+\newcommand*{\modulename}[1]{\gdef\@modulename{#1}}
+\newcommand*{\@modulename}{\red{Missing Module Name}}
 \newcommand*{\submissiontitle}[1]{\gdef\@submissiontitle{#1}}
 \newcommand*{\@submissiontitle}{\red{Missing Submission title}}
+\newcommand*{\submissionyear}[1]{\gdef\@submissionyear{#1}}
+\newcommand*{\@submissionyear}{\red{Missing Submission year}}
+\newcommand*{\submissiondate}[1]{\gdef\@submissiondate{#1}}
+\newcommand*{\@submissiondate}{\red{Missing Submission date}}
 \newcommand*{\studentnumber}[1]{\gdef\@studentnumber{#1}}
 \newcommand*{\@studentnumber}{\red{Missing Studentnumber}}
 \newcommand*{\programme}[1]{\gdef\@programme{#1}}
-\newcommand*{\@programme}{\red{Missing Program}}
+\newcommand*{\@programme}{\red{Missing Programme}}
 \newcommand*{\supervisor}[1]{\gdef\@supervisor{#1}}
 \newcommand*{\@supervisor}{\red{Missing supervisor}}
 \newcommand*{\wordcount}[1]{\gdef\@wordcount{#1}}
 \newcommand*{\@wordcount}{\red{Missing wordcount}}
 \newcommand*{\signdate}[1]{\gdef\@signdate{#1}}
 \newcommand*{\@signdate}{\today}
+\newcommand*{\departmentaddress}[1]{\gdef\@departmentaddress{#1}}
+\newcommand*{\@departmentaddress}{\red{Missing Department Address}}
 
 
 % MACRO 
@@ -104,15 +120,23 @@
 \renewcommand*{\maketitle}{
 \begin{titlepage}
 
-\begin{minipage}{0.5\textwidth}
-\begin{flushleft}
-\textbf{Faculty of Natural and\\
-	Mathematical Sciences\\}
-\small{\@department}
-\end{flushleft}
+\begin{minipage}{0.3\textwidth}
+\singlespacing{
+	\begin{flushleft}
+	\textbf{Faculty of Natural\\
+		and Mathematical Sciences\\}
+	\small{\@department}\\
+	\phantom{AAA}
+	\end{flushleft}
+}
 \end{minipage}%
-\begin{minipage}{0.25\textwidth}
-	\hspace{5cm}
+%
+\begin{minipage}{0.45\textwidth}
+\singlespacing{
+	\begin{flushleft}
+	\scriptsize{\@departmentaddress}
+	\end{flushleft}
+}
 \end{minipage}%
 \begin{minipage}{0.25\textwidth}
 	\begin{flushright}
@@ -122,23 +146,21 @@
 \vspace{1cm}
 
 \doublespacing{
-\begin{minipage}{\textwidth}
-	\begin{center}
-		\textbf{\@modulecode \\ \@submissiontitle}
-	\end{center}
-\end{minipage}%
 
+\begin{flushright}
+	\textbf{\@modulecode \\ \@submissiontitle \\ \@submissionyear}
+\end{flushright}
 
 \vspace{0.5cm}
 
 \begin{minipage}{0.3\textwidth}
 	\begin{flushleft}
-	\textbf{Name:\\Student Number:\\Degree Programme:\\Project Title:\\ Supervisor:\\ Word Count:\\}
+	\textbf{Student Name:\\Student Number:\\Degree Programme:\\Date of Submission:\\Project Title:\\ Supervisor Name(s):\\ Word Count:\\}
 	\end{flushleft}
 \end{minipage}%
 \begin{minipage}{0.7\textwidth}
 	\begin{flushleft}
-	\@author \\ \@studentnumber \\ \@programme \\ \@title \\ \@supervisor \\ \@wordcount
+	\@author \\ \@studentnumber \\ \@programme \\ \@submissiondate \\ \@title \\ \@supervisor \\ \@wordcount
 	\end{flushleft}
 \end{minipage}
 }
@@ -146,13 +168,28 @@
 	
 \begin{minipage}{\textwidth}
 	\begin{framed}
-		Plagiarism Statement\\
-		All work submitted as part of the requirements for any examination or assessment must be expressed in your own words and incorporates your own ideas and judgements. Plagiarism is the taking and using of another person’s thoughts, words, judgements, ideas, etc., as your own without any indication that they are those of another person.\\
-		Plagiarism is a serious examination offence. An allegation of plagiarism can result in action being taken under the \textit{B3 Misconduct Regulations}. 
+		\begin{center}
+			\textbf{RELEASE OF PRODUCT}
+		\end{center}
+		Following the submission of your project, the Department would like to make it publicly available via the library electronic resources. You will retain copyright of the project.
 	\end{framed}
 
-
-I acknowledge that I have read and understood the above information and that the work I am submitting is my own. 
+	\begin{flushleft}
+		\ifkclthesis@releaseproject
+			$\CheckedBox$ I \textbf{agree} to the release of my project\\
+			$\square$ I \textbf{do not} agree to the release of my project	
+		\fi
+		\ifkclthesis@notreleaseproject
+			$\square$ I \textbf{agree} to the release of my project\\
+			$\CheckedBox$ I \textbf{do not} agree to the release of my project
+		\fi
+		\ifkclthesis@undreleaseproject
+			\red{
+				\fbox{?} I \textbf{agree} to the release of my project\\
+				\fbox{?} I \textbf{do not} agree to the release of my project
+			}
+		\fi
+	\end{flushleft}
 \end{minipage}
 
 \vspace{1.5cm}
@@ -163,9 +200,9 @@ I acknowledge that I have read and understood the above information and that the
 \end{flushleft}
 \end{minipage}%
 \begin{minipage}{0.5\textwidth}
-	\begin{flushleft}
+	\begin{flushright}
 		\textbf{Date:} \@signdate
-	\end{flushleft}
+	\end{flushright}
 \end{minipage}
 
 \end{titlepage}
@@ -222,8 +259,8 @@ Degree Programme: \@programme
 \vspace{1.2cm}
 
 \begin{center}
-Thesis submitted as part of the requirements for the award of the \@programme.\\
-\@modulecode - \@submissiontitle
+Report submitted as part of the requirements for the award of the \@programme.\\
+\@modulecode - \@modulename - \@submissionyear
 \end{center}
 \end{titlepage}
 }
